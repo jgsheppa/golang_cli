@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/common-nighthawk/go-figure"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -21,10 +22,14 @@ var dataFile string
 var rootCmd = &cobra.Command{
 	Use:   "golang_cli",
 	Short: "A brief description of your application",
-	Long: `This CLI app will help you create lists and keep track of your tasks.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Long: `
+	This CLI app will help you create lists and keep track of your tasks.`,
+
+}
+
+func runAsciiTitle() {
+	myFigure := figure.NewColorFigure("GoDo", "", "green", true)
+  myFigure.Print()
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -41,6 +46,8 @@ func init() {
 	if err != nil {
 		log.Println("Unable to detect home directory. Please set data file using --datafile.")
 	}
+	runAsciiTitle()
+
 	rootCmd.PersistentFlags().StringVar(&dataFile, "datafile", home+string(os.PathSeparator)+"gotodo.json", "data file to store tasks")
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,

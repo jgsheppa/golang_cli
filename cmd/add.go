@@ -19,7 +19,7 @@ var priority int
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a task",
-	Long: `Add will create a new todo item for the list.`,
+	Long: `Creates a new todo item for your list.`,
 	Run: addRun,
 }
 

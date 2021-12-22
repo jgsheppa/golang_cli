@@ -5,13 +5,13 @@ Copyright © 2021 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"github/jgsheppa/golang_cli/todo"
 	"log"
 	"os"
 	"sort"
 	"text/tabwriter"
 
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -41,24 +41,25 @@ func listRun(cmd *cobra.Command, args []string) {
 	sort.Sort(todo.ByPri(items))
 	
 	w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)
+	c := color.New(color.FgHiYellow)
 
 	switch {
 	case head:
 		for i := 1; i < 6; i++ {
 			if allOpt || items[i].Done == doneOpt {
-				fmt.Fprintln(w, items[i].Label()+"\t"+items[i].PrettyDone()+"\t"+items[i].PrettyPrint()+"\t"+items[i].Text+"\t")
+				c.Fprintln(w, items[i].Label()+"\t"+items[i].PrettyDone()+"\t"+items[i].PrettyPrint()+"\t"+items[i].Text+"\t")
 			}
 		}
 	case tail:
 		for i := len(items) - 5; i < len(items); i++ {
 			if allOpt || items[i].Done == doneOpt {
-				fmt.Fprintln(w, items[i].Label()+"\t"+items[i].PrettyDone()+"\t"+items[i].PrettyPrint()+"\t"+items[i].Text+"\t")
+				c.Fprintln(w, items[i].Label()+"\t"+items[i].PrettyDone()+"\t"+items[i].PrettyPrint()+"\t"+items[i].Text+"\t")
 			}
 		}
 	default:
 		for _, item := range items {
 			if allOpt || item.Done == doneOpt {
-				fmt.Fprintln(w, item.Label()+"\t"+item.PrettyDone()+"\t"+item.PrettyPrint()+"\t"+item.Text+"\t")
+				c.Fprintln(w, item.Label()+"\t"+item.PrettyDone()+"\t"+item.PrettyPrint()+"\t"+item.Text+"\t")
 			}
 	} 
 

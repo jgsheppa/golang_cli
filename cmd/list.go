@@ -45,16 +45,12 @@ func listRun(cmd *cobra.Command, args []string) {
 
 	switch {
 	case head:
-		for i := 1; i < 6; i++ {
-			if allOpt || items[i].Done == doneOpt {
+		for i := 0; i < 5; i++ {	
 				c.Fprintln(w, items[i].Label()+"\t"+items[i].PrettyDone()+"\t"+items[i].PrettyPrint()+"\t"+items[i].Text+"\t")
-			}
 		}
 	case tail:
 		for i := len(items) - 5; i < len(items); i++ {
-			if allOpt || items[i].Done == doneOpt {
 				c.Fprintln(w, items[i].Label()+"\t"+items[i].PrettyDone()+"\t"+items[i].PrettyPrint()+"\t"+items[i].Text+"\t")
-			}
 		}
 	default:
 		for _, item := range items {
